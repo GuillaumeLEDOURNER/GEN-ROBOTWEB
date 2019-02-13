@@ -8,6 +8,8 @@ class MyHtml2String {
       opening += (" " + a._1 + "=" + a._2)
     }
     
+    // Test commit
+    
     opening += '>'
     
     val closing = "</" + html.name + '>'
