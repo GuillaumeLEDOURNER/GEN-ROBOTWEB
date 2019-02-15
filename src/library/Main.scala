@@ -30,7 +30,7 @@ object Main extends App
   
   val html2String = new MyHtml2String()
   
-  val resultatString = html2String.process(resultatHtml.asInstanceOf[Tag])
+  val resultatString = html2String.process(resultatHtml)
   
   var file = new FileWriter("resultat.html")
   try {

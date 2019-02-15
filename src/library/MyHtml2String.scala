@@ -1,24 +1,33 @@
 package library
 
 class MyHtml2String {
-  def process(html : Tag): String = {
-    var opening = '<' + html.name
+
+  var htmlCast: Tag = _
+
+  def process(html : Html): String = {
+
+    try {
+      htmlCast = html.asInstanceOf[Tag]
+    } catch {
+      case _: Throwable => println("Only Tag objects should be passed to MyHtml2String.process() !")
+    }
+
+    var opening = '<' + htmlCast.name
     
-    for(a <- html.attributes) {
+    for(a <- htmlCast.attributes) {
       opening += (" " + a._1 + "=" + a._2)
     }
     
     opening += '>'
     
-    val closing = "</" + html.name + '>'
+    val closing = "</" + htmlCast.name + '>'
     
     var parsedChildren = List[String]()
     
-    for(child <- html.children) {
-      if(child.isInstanceOf[Tag]) {
-        parsedChildren ::= process(child.asInstanceOf[Tag])
-      } else {
-        parsedChildren ::= child.asInstanceOf[Text].content
+    for(child <- htmlCast.children) {
+      child match {
+        case Tag(_, _, _) => parsedChildren ::= process(child.asInstanceOf[Tag])
+        case Text(_) => parsedChildren ::= child.asInstanceOf[Text].content
       }
     }
     
@@ -28,6 +37,6 @@ class MyHtml2String {
     }
     result += closing
     
-    return result
+    result
   }
 }

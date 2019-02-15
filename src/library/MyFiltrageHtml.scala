@@ -31,8 +31,7 @@ class MyFiltrageHtml extends FiltrageHtml {
    * @return vrai si l'expression se trouve dans le document Html
    */
   def filtreHtml2(h:Html,e:String): Boolean ={
-    var page = new MyHtml2String().process(h.asInstanceOf[Tag])
+    var page = new MyHtml2String().process(h)
     page.contains(e)
   }                           				
 }
-
