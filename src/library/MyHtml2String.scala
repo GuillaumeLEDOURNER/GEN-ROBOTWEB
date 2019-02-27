@@ -6,11 +6,11 @@ class MyHtml2String {
 
   def process(html : Html): String = {
 
-    /*try {
+    try {
       htmlCast = html.asInstanceOf[Tag]
     } catch {
       case _: Throwable => println("Only Tag objects should be passed to MyHtml2String.process() !")
-    }*/
+    }
 
     var opening = '<' + htmlCast.name
     
